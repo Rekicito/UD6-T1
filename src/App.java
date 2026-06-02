@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 import java.util.Queue;
 import net.salesianos.Pedido;
+import java.util.Stack;
 
 public class App {
     public static void main(String[] args) {
@@ -25,5 +26,18 @@ public class App {
         }
         System.out.println("\nPRIMER PEDIDO");
         System.out.println(colaPedidos.peek());
+
+        System.out.println("\nPREPARANDO PEDIDOS");
+
+        Stack<Pedido> pilaPreparados = new Stack<>();
+
+        for (int i = 0; i < 3; i++) {
+            Pedido preparado = colaPedidos.poll();
+            pilaPreparados.push(preparado);
+            System.out.println("Pedido preparado: " + preparado);
+        }
+
+        System.out.println("\nULTIMO PEDIDO PREPARADO");
+        System.out.println(pilaPreparados.peek());
     }
 }
