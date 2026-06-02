@@ -39,5 +39,16 @@ public class App {
 
         System.out.println("\nULTIMO PEDIDO PREPARADO");
         System.out.println(pilaPreparados.peek());
+
+        System.out.println("\nEXTRAYENDO PEDIDO DEL HISTORIAL");
+
+        Pedido pedidoExtraido = pilaPreparados.pop();
+        System.out.println(pedidoExtraido);
+
+        System.out.println("\nPEDIDOS PENDIENTES");
+        System.out.println(colaPedidos.size());
+
+        System.out.println("\n¿COLA VACIA?");
+        System.out.println(colaPedidos.isEmpty());
     }
 }
