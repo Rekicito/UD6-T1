@@ -35,4 +35,28 @@ public class Participante {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+
+    @Override
+    public String toString() {
+        return "Participante{" +
+                "idJugador='" + idJugador + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", categoria='" + categoria + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Participante))
+            return false;
+        Participante p = (Participante) obj;
+        return this.idJugador.equals(p.getIdJugador());
+    }
+
+    @Override
+    public int hashCode() {
+        return idJugador.hashCode();
+    }
 }
