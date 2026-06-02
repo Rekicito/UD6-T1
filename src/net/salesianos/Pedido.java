@@ -55,4 +55,8 @@ public class Pedido {
                 ", paraLlevar=" + paraLlevar +
                 '}';
     }
+
+    public boolean equals(Pedido pedido) {
+        return this.codigo.equals(pedido.getCodigo());
+    }
 }
