@@ -23,5 +23,7 @@ public class App {
         for (Pedido pedido : colaPedidos) {
             System.out.println(pedido);
         }
+        System.out.println("\nPRIMER PEDIDO");
+        System.out.println(colaPedidos.peek());
     }
 }
