@@ -46,4 +46,13 @@ public class Pedido {
         this.paraLlevar = paraLlevar;
     }
 
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "codigo='" + codigo + '\'' +
+                ", cliente='" + cliente + '\'' +
+                ", producto='" + producto + '\'' +
+                ", paraLlevar=" + paraLlevar +
+                '}';
+    }
 }
