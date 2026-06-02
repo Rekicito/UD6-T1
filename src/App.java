@@ -17,5 +17,11 @@ public class App {
         colaPedidos.add(p3);
         colaPedidos.add(p4);
         colaPedidos.add(p5);
+
+        System.out.println("PEDIDOS PENDIENTES");
+
+        for (Pedido pedido : colaPedidos) {
+            System.out.println(pedido);
+        }
     }
 }
