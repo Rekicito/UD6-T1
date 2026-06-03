@@ -1,26 +1,25 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
+import java.util.LinkedList;
 import java.util.Stack;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.ArrayList;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import net.salesianos.Pelicula;
-import net.salesianos.Participante;
 import net.salesianos.Pedido;
+import net.salesianos.Participante;
+import net.salesianos.Pelicula;
 
 public class App {
     public static void main(String[] args) {
 
-        // EJERCICIO 1
-
+        // EJERCICIO 1 - Pedidos
         Queue<Pedido> colaPedidos = new LinkedList<>();
-
         Pedido p1 = new Pedido("P001", "Carla", "Café con leche", true);
         Pedido p2 = new Pedido("P002", "Mario", "Bocadillo de pollo", false);
         Pedido p3 = new Pedido("P003", "Nerea", "Zumo natural", true);
@@ -33,40 +32,27 @@ public class App {
         colaPedidos.add(p4);
         colaPedidos.add(p5);
 
-        System.out.println("PEDIDOS PENDIENTES");
-
-        for (Pedido pedido : colaPedidos) {
+        System.out.println("=== EJERCICIO 1 ===");
+        System.out.println("Pedidos pendientes:");
+        for (Pedido pedido : colaPedidos)
             System.out.println(pedido);
-        }
 
-        System.out.println("\nPRIMER PEDIDO");
-        System.out.println(colaPedidos.peek());
+        System.out.println("Primer pedido: " + colaPedidos.peek());
 
         Stack<Pedido> pilaPreparados = new Stack<>();
+        for (int i = 0; i < 3; i++)
+            pilaPreparados.push(colaPedidos.poll());
 
-        for (int i = 0; i < 3; i++) {
-            Pedido preparado = colaPedidos.poll();
-            pilaPreparados.push(preparado);
-        }
-
-        System.out.println("\nULTIMO PEDIDO PREPARADO");
-        System.out.println(pilaPreparados.peek());
+        System.out.println("Último pedido preparado: " + pilaPreparados.peek());
 
         Pedido pedidoExtraido = pilaPreparados.pop();
+        System.out.println("Pedido extraído del historial: " + pedidoExtraido);
 
-        System.out.println("\nPEDIDO EXTRAIDO");
-        System.out.println(pedidoExtraido);
+        System.out.println("Pedidos pendientes: " + colaPedidos.size());
+        System.out.println("¿Cola vacía?: " + colaPedidos.isEmpty());
 
-        System.out.println("\nPEDIDOS PENDIENTES");
-        System.out.println(colaPedidos.size());
-
-        System.out.println("\n¿COLA VACIA?");
-        System.out.println(colaPedidos.isEmpty());
-
-        // EJERCICIO 2
-
+        // EJERCICIO 2 - Participantes
         Set<Participante> participantes = new HashSet<>();
-
         participantes.add(new Participante("J001", "Adrián", "Junior"));
         participantes.add(new Participante("J002", "Paula", "Junior"));
         participantes.add(new Participante("J003", "Samuel", "Senior"));
@@ -75,105 +61,102 @@ public class App {
         participantes.add(new Participante("J005", "Diego", "Junior"));
         participantes.add(new Participante("J006", "Alba", "Experto"));
 
-        System.out.println("\nPARTICIPANTES");
+        // No se añaden duplicados porque HashSet usa equals() y hashCode()
+        // para comprobar si un participante ya existe.
 
-        for (Participante participante : participantes) {
+        System.out.println("\n=== EJERCICIO 2 ===");
+        System.out.println("Participantes:");
+        for (Participante participante : participantes)
             System.out.println(participante);
-        }
 
-        System.out.println("\nParticipantes intentados: 7");
+        System.out.println("Participantes intentados: 7");
         System.out.println("Participantes reales: " + participantes.size());
 
         HashMap<String, Integer> categorias = new HashMap<>();
-
         for (Participante participante : participantes) {
+            String cat = participante.getCategoria();
 
-            String categoria = participante.getCategoria();
-
-            if (categorias.containsKey(categoria)) {
-                categorias.put(categoria, categorias.get(categoria) + 1);
+            if (categorias.containsKey(cat)) {
+                categorias.put(cat, categorias.get(cat) + 1);
             } else {
-                categorias.put(categoria, 1);
+                categorias.put(cat, 1);
             }
         }
 
-        System.out.println("\nMAPA DE CATEGORIAS");
-        System.out.println(categorias);
+        System.out.println("Conteo por categoría: " + categorias);
 
-        System.out.println("\nParticipantes Junior:");
-        System.out.println(categorias.get("Junior"));
+        if (categorias.containsKey("Junior")) {
+            System.out.println("Participantes Junior: " + categorias.get("Junior"));
+        } else {
+            System.out.println("Participantes Junior: 0");
+        }
 
-        System.out.println("\n¿Existe Experto?");
-        System.out.println(categorias.containsKey("Experto"));
+        System.out.println("¿Existe Experto?: " + categorias.containsKey("Experto"));
 
-        if (categorias.containsKey("Experto")) {
+        if (categorias.containsKey("Experto"))
             categorias.remove("Experto");
-        }
 
-        System.out.println("\nCLAVES DEL MAPA");
-
-        for (String clave : categorias.keySet()) {
+        System.out.println("Claves después de eliminar Experto:");
+        for (String clave : categorias.keySet())
             System.out.println(clave);
-        }
 
-        // EJERCICIO 3
-
+        // EJERCICIO 3 - Películas
         ArrayList<Pelicula> peliculas = new ArrayList<>();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("peliculas.csv"));
-
-            String linea = br.readLine(); // ignorar primera línea
+            BufferedReader br = new BufferedReader(new FileReader("UD6-T1/peliculas.csv"));
+            String linea = br.readLine();
 
             while ((linea = br.readLine()) != null) {
                 String[] partes = linea.split(",");
-
                 String titulo = partes[0];
                 String genero = partes[1];
                 int duracion = Integer.parseInt(partes[2]);
 
-                Pelicula pelicula = new Pelicula(titulo, genero, duracion);
-                peliculas.add(pelicula);
+                peliculas.add(new Pelicula(titulo, genero, duracion));
             }
 
             br.close();
-
-        } catch (IOException e) {
-            System.out.println("Error leyendo el archivo");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        int totalPeliculas = peliculas.size();
-        int duracionTotal = 0;
-        Pelicula peliculaMayor = peliculas.get(0);
+        if (peliculas.size() > 0) {
+            int total = 0;
+            Pelicula mayor = peliculas.get(0);
 
-        for (Pelicula pelicula : peliculas) {
-            duracionTotal += pelicula.getDuracionMinutos();
+            for (Pelicula p : peliculas) {
+                total += p.getDuracionMinutos();
 
-            if (pelicula.getDuracionMinutos() > peliculaMayor.getDuracionMinutos()) {
-                peliculaMayor = pelicula;
+                if (p.getDuracionMinutos() > mayor.getDuracionMinutos())
+                    mayor = p;
             }
+
+            double media = (double) total / peliculas.size();
+
+            System.out.println("\n=== EJERCICIO 3 ===");
+            System.out.println("Total de películas: " + peliculas.size());
+            System.out.println("Duración total: " + total);
+            System.out.println("Duración media: " + media);
+            System.out.println("Película con mayor duración: " + mayor);
+
+            try {
+                FileWriter resumen = new FileWriter("UD6-T1/resumen_peliculas.txt");
+                resumen.write("RESUMEN DE PELICULAS\n");
+                resumen.write("Total de peliculas: " + peliculas.size() + "\n");
+                resumen.write("Duración total: " + total + " minutos\n");
+                resumen.write("Duración media: " + media + "\n");
+                resumen.write("Película con mayor duración: " + mayor + "\n");
+                resumen.close();
+
+                FileWriter log = new FileWriter("UD6-T1/log_peliculas.txt", true);
+                log.write("Se ha generado el resumen de peliculas\n");
+                log.close();
+            } catch (IOException e) {
+                System.out.println("Error escribiendo archivos");
+            }
+        } else {
+            System.out.println("No se han cargado películas. Revisa la ruta del CSV.");
         }
-
-        double duracionMedia = (double) duracionTotal / totalPeliculas;
-
-        try {
-            FileWriter resumen = new FileWriter("resumen_peliculas.txt");
-
-            resumen.write("RESUMEN DE PELICULAS\n");
-            resumen.write("Total de peliculas: " + totalPeliculas + "\n");
-            resumen.write("Duracion total: " + duracionTotal + " minutos\n");
-            resumen.write("Duracion media: " + duracionMedia + "\n");
-            resumen.write("Pelicula con mayor duracion: " + peliculaMayor + "\n");
-
-            resumen.close();
-
-            FileWriter log = new FileWriter("log_peliculas.txt", true);
-            log.write("Se ha generado el resumen de peliculas\n");
-            log.close();
-
-        } catch (IOException e) {
-            System.out.println("Error escribiendo archivos");
-        }
-
     }
 }

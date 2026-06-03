@@ -56,7 +56,13 @@ public class Pedido {
                 '}';
     }
 
-    public boolean equals(Pedido pedido) {
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Pedido))
+            return false;
+        Pedido pedido = (Pedido) obj;
         return this.codigo.equals(pedido.getCodigo());
     }
 }

@@ -1,0 +1,5 @@
+RESUMEN DE PELICULAS
+Total de peliculas: 6
+Duración total: 842 minutos
+Duración media: 140.33333333333334
+Película con mayor duración: El Padrino - Drama - 175 min
